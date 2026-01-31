@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ECSM Framework</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;max-width:900px;margin:40px auto;padding:0 16px;line-height:1.55}
+    header{margin-bottom:24px}
+    .pill{display:inline-block;padding:4px 10px;border:1px solid #ddd;border-radius:999px;font-size:12px;margin-right:8px}
+    h1{margin:8px 0 6px}
+    nav a{margin-right:14px}
+    .card{border:1px solid #eee;border-radius:12px;padding:14px;margin:12px 0}
+    .muted{color:#666}
+  </style>
+</head>
+<body>
+  <header>
+    <span class="pill">ECSM</span><span class="pill">Research Hub</span>
+    <h1>Emergent Condensate Superfluid Medium (ECSM)</h1>
+    <p class="muted">
+      A public repository and documentation hub for manuscripts, predictions, code, and datasets.
+    </p>
+    <nav>
+      <a href="#start">Start here</a>
+      <a href="#papers">Papers</a>
+      <a href="#results">Results</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="start" class="card">
+    <h2>Start here</h2>
+    <ol>
+      <li>Read the overview in the README.</li>
+      <li>Open the “Papers” section for PDFs and summaries.</li>
+      <li>Check “Results” for key tests (e.g. Planck lensing suppression scan).</li>
+    </ol>
+  </section>
+
+  <section id="papers" class="card">
+    <h2>Papers</h2>
+    <p>PDFs and short summaries will live in <code>/papers</code>.</p>
+  </section>
+
+  <section id="results" class="card">
+    <h2>Results</h2>
+    <p>Figures, tables, and reproducible notebooks will live in <code>/results</code> and <code>/notebooks</code>.</p>
+  </section>
+
+  <section id="contact" class="card">
+    <h2>Contact</h2>
+    <p>Add your preferred contact method here (email, X, etc.).</p>
+  </section>
+
+  <footer class="muted" style="margin-top:28px">
+    <p>Last updated: <span id="d"></span></p>
+  </footer>
+  <script>document.getElementById("d").textContent=new Date().toISOString().slice(0,10)</script>
+</body>
+</html>
