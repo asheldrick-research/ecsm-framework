@@ -40,8 +40,7 @@ All papers are authored by **Adam Sheldrick** and are publicly available.
 ## Author
 
 **Adam Sheldrick**  
-ORCID: https://orcid.org/0000-0002-XXXX-XXXX  
-(Replace with your actual ORCID URL)
+ORCID: https://orcid.org/0009-0004-3145-757X
 
 ---
 
