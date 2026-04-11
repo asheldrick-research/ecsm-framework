@@ -8,22 +8,24 @@
   <style>
     body{
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 880px;
+      max-width: 920px;
       margin: 42px auto;
       padding: 0 18px;
       line-height: 1.65;
       color: #111;
-      .tag{
-  display:inline-block;
-  padding: 2px 8px;
-  border: 1px solid #d8dde3;
-  border-radius: 999px;
-  background:#fff;
-  font-size: 0.85rem;
-  color:#333;
-  margin-left: 6px;
-      }
     }
+
+    .tag{
+      display:inline-block;
+      padding: 2px 8px;
+      border: 1px solid #d8dde3;
+      border-radius: 999px;
+      background:#fff;
+      font-size: 0.85rem;
+      color:#333;
+      margin-left: 6px;
+    }
+
     h1, h2, h3 { line-height: 1.25; margin: 1.2em 0 0.5em; }
     h1 { margin-top: 0; }
     p { margin: 0.7em 0; }
@@ -33,14 +35,17 @@
 
     .box{
       background:#f5f7fa;
-      padding:18px 18px;
+      padding:18px;
       border-left:4px solid #0056b3;
       margin: 22px 0;
       border-radius: 8px;
     }
+
     .small { color:#444; font-size: 0.96rem; }
+
     ul{ margin: 0.6em 0 0.9em 1.2em; }
-    li{ margin: 0.45em 0; }
+    li{ margin: 0.7em 0; }
+
     .pillrow a{
       display:inline-block;
       padding: 6px 10px;
@@ -50,7 +55,25 @@
       background: #fff;
       font-size: 0.95rem;
     }
+
     .section-note{ margin-top: -6px; }
+
+    .latest{
+      background:#fbfcfe;
+      border:1px solid #e3e6ea;
+      border-radius:10px;
+      padding:16px 18px;
+      margin: 18px 0 26px;
+    }
+
+    .latest h3{
+      margin-top: 0;
+    }
+
+    .paper-note{
+      color:#333;
+      font-size:0.97rem;
+    }
   </style>
 </head>
 
@@ -65,8 +88,9 @@
 
   <div class="box">
     <b>Core idea:</b><br>
-    Geometry, gravitational lensing, redshift, and structure growth emerge as
-    effective, scale-dependent limits of finite-coherence propagation and medium response.
+    Geometry, gravitational lensing, redshift, structure growth, horizons, and
+    measurement are treated as effective, scale-dependent limits of finite-coherence
+    propagation and medium response.
   </div>
 
   <div class="pillrow">
@@ -75,120 +99,155 @@
     <a href="papers.html">Papers index</a>
   </div>
 
+  <div class="latest">
+    <h3>Latest additions</h3>
+    <ul>
+      <li>
+        <b>Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium</b>
+        <span class="tag">New</span><br>
+        <span class="paper-note">Gradient-dominated shell structure and structure-dependent horizon formation.</span><br>
+        <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">DOI / PDF</a>
+      </li>
+      <li>
+        <b>Sonoluminescence as Coherence Breakdown</b>
+        <span class="tag">New</span><br>
+        <span class="paper-note">A finite-response, coherence-mediated release model for driven bubble collapse.</span><br>
+        <a href="pdfs/Sonoluminescence_as_Coherence_Breakdown__A_Non_Markovian_Emission_Mechanism_in_Driven_Bubble_Collapse (3).pdf" target="_blank" rel="noopener">PDF</a>
+      </li>
+      <li>
+        <b>A Universal Finite-Response Law for Energy Storage and Release in Driven Physical Systems</b>
+        <span class="tag">New</span><br>
+        <span class="paper-note">A unifying internal-state law for lag, hysteresis, and delayed release across driven systems.</span><br>
+        <a href="pdfs/A_Universal_Finite_Response_Law_for_Energy_Storage_and_Release_in_Driven_Physical_Systems (2).pdf" target="_blank" rel="noopener">PDF</a>
+      </li>
+    </ul>
+  </div>
+
   <h2>Key Results</h2>
   <ul>
     <li><a href="results.html">CMB lensing suppression test</a> (high-ℓ behaviour)</li>
-    <li>Unified description of inertia, gravity, lensing, and structure growth</li>
+    <li>Unified description of inertia, gravity, lensing, horizons, and structure growth</li>
     <li>No requirement for dark matter, dark energy, or cosmic expansion (within ECSM)</li>
     <li>Explicit operational requirements, constraints, and falsifiable failure modes</li>
+    <li>Emergent acoustic structure, birefringence, and finite-response propagation signatures in cosmology</li>
   </ul>
+
   <hr>
 
-<h2 id="program">Program</h2>
-<p class="section-note small">
-  A curated map of the ECSM research programme: core claims, regime structure, reading order, and falsifiers.
-</p>
+  <h2 id="program">Program</h2>
+  <p class="section-note small">
+    A curated map of the ECSM research programme: core claims, regime structure, reading order, and falsifiers.
+  </p>
 
-<div class="box">
-  <b>ECSM in one sentence:</b><br>
-  Gravitational, optical, quantum, and cosmological phenomena arise as effective, scale-dependent regimes of propagation and response in a coherent medium, with “limits” (Planck scale, horizons, measurement) corresponding to finite-response/coherence transitions rather than fundamental spacetime discreteness.
-</div>
+  <div class="box">
+    <b>ECSM in one sentence:</b><br>
+    Gravitational, optical, quantum, and cosmological phenomena arise as effective,
+    scale-dependent regimes of propagation and response in a coherent medium, with
+    “limits” (Planck scale, horizons, measurement, and coherence transitions) corresponding
+    to finite-response boundaries rather than fundamental spacetime discreteness.
+  </div>
 
-<h3>The spine (three-layer stack)</h3>
-<ul>
-  <li><b>Operational / Effective layer:</b> what can be claimed without committing to microphysics (regime-limited geometry, finite response, coherence loss, boundary behaviour).</li>
-  <li><b>Mechanism layer:</b> what ECSM proposes underneath (a coherent substrate with channel structure, dispersion/back-action, and coupling rules).</li>
-  <li><b>Tests / constraints layer:</b> what rules it out (internal consistency constraints + empirical diagnostics with reproducible pipelines).</li>
-</ul>
-
-<h3>Reading order (recommended)</h3>
-<p class="small">
-If you only read one thread: start at (1) and follow the chain.
-</p>
-
-<ol>
-  <li>
-    <b>
-      <a href="pdfs/What_the_Planck_Scale_Limits__Geometry__Not_Spacetime (1).pdf"
-         target="_blank" rel="noopener">
-        Planck-scale reinterpretation
-      </a>
-    </b>
-    <em>(Core)</em><br>
-    Planck length as an ultraviolet saturation boundary for geometric response.
-  </li>
-
-  <li>
-    <b>
-      <a href="pdfs/Black_Hole_Horizons_as_Finite_Response_Boundaries_of_Geometric_Description.pdf"
-         target="_blank" rel="noopener">
-        Horizon reinterpretation
-      </a>
-    </b>
-    <em>(Core)</em><br>
-    Horizons as finite-response / coherence-transition boundaries.
-  </li>
-
-  <li>
-    <b>
-      <a href="pdfs/Quantum_Measurement_as_a_Finite_Response_Transition (1).pdf"
-         target="_blank" rel="noopener">
-        Measurement &amp; decoherence
-      </a>
-    </b>
-    <em>(Bridge)</em><br>
-    Measurement framed as coherence loss and response activation.
-  </li>
-
-  <li>
-    <b>
-      <a href="pdfs/Cosmological_Inference_in_the_Presence_of_Finite_Propagation_Response.pdf"
-         target="_blank" rel="noopener">
-        Cosmology response
-      </a>
-    </b>
-    <em>(Bridge → Core)</em><br>
-    Transport, damping, and boundary behaviour without expansion bookkeeping.
-  </li>
-
-  <li>
-    <b>
-      <a href="pdfs/Emergent_Condensate_Superfluid_Medium_as_a_Finite_Response_Substrate_for_Gravitation_and_Cosmology (1).pdf"
-         target="_blank" rel="noopener">
-        ECSM mechanism / microphysics
-      </a>
-    </b>
-    <em>(Program synthesis)</em><br>
-    Minimal microscopic scaffold yielding the observed response regimes.
-  </li>
-</ol>
-
-<h3>Operational commitments (minimal)</h3>
-<ul>
-  <li><b>Regime validity:</b> geometric / metric descriptions are effective and can fail when response becomes nonlocal, history-dependent, or coherence-limited.</li>
-  <li><b>Finite response:</b> high excitation / localization activates back-action, dispersion, dissipation channels and breaks linear “memoryless propagation” assumptions.</li>
-  <li><b>Conservative recovery:</b> standard GR/QFT behaviour is recovered in the tested, low-excitation coherent regime.</li>
-</ul>
-
-<h3>Falsifiers / failure modes (what would rule this out)</h3>
-<div class="box">
+  <h3>The spine (three-layer stack)</h3>
   <ul>
-    <li><b>Consistency falsifier:</b> if the framework cannot reproduce standard limits and late-time observables simultaneously under its stated assumptions (e.g., distance measures, growth behaviour, lensing diagnostics).</li>
-    <li><b>Empirical falsifier:</b> if independent replications remove key reported anomalies/diagnostics (e.g., wide-binary phase asymmetry; high-ℓ lensing suppression signatures) once systematics are controlled.</li>
-    <li><b>Mechanism falsifier:</b> if no plausible microphysical scaffold can yield the required regime structure (local coherent limit + transition + nonlocal response) without introducing contradictions with laboratory analogues or well-tested physics.</li>
+    <li><b>Operational / Effective layer:</b> what can be claimed without committing to microphysics (regime-limited geometry, finite response, coherence loss, boundary behaviour).</li>
+    <li><b>Mechanism layer:</b> what ECSM proposes underneath (a coherent substrate with channel structure, dispersion/back-action, response saturation, and coupling rules).</li>
+    <li><b>Tests / constraints layer:</b> what rules it out (internal consistency constraints + empirical diagnostics with reproducible pipelines).</li>
   </ul>
-  <span class="small">
-    This list is intentionally conservative: the programme is designed to be killable.
-  </span>
-</div>
 
-<h3>Status labels</h3>
-<ul>
-  <li><b>Core:</b> defines the framework or its key reinterpretations.</li>
-  <li><b>Bridge:</b> translates the language into standard practice without requiring ontological commitment.</li>
-  <li><b>Empirical:</b> data-facing pipelines and diagnostics.</li>
-  <li><b>Notes / Developing:</b> working material, mechanism sketches, or exploratory analyses.</li>
-</ul>
+  <h3>Reading order (recommended)</h3>
+  <p class="small">
+    If you only read one thread: start at (1) and follow the chain.
+  </p>
+
+  <ol>
+    <li>
+      <b>
+        <a href="pdfs/What_the_Planck_Scale_Limits__Geometry__Not_Spacetime (1).pdf" target="_blank" rel="noopener">
+          Planck-scale reinterpretation
+        </a>
+      </b>
+      <em>(Core)</em><br>
+      Planck length as an ultraviolet saturation boundary for geometric response.
+    </li>
+
+    <li>
+      <b>
+        <a href="pdfs/Black_Hole_Horizons_as_Finite_Response_Boundaries_of_Geometric_Description.pdf" target="_blank" rel="noopener">
+          Horizon reinterpretation
+        </a>
+      </b>
+      <em>(Core)</em><br>
+      Horizons as finite-response / coherence-transition boundaries.
+    </li>
+
+    <li>
+      <b>
+        <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">
+          Shell-localized gravitational response
+        </a>
+      </b>
+      <em>(Core)</em><br>
+      Horizon formation from gradient-dominated shell structure rather than enclosed mass alone.
+    </li>
+
+    <li>
+      <b>
+        <a href="pdfs/Quantum_Measurement_as_a_Finite_Response_Transition (1).pdf" target="_blank" rel="noopener">
+          Measurement &amp; decoherence
+        </a>
+      </b>
+      <em>(Bridge)</em><br>
+      Measurement framed as coherence loss and response activation.
+    </li>
+
+    <li>
+      <b>
+        <a href="pdfs/Cosmological_Inference_in_the_Presence_of_Finite_Propagation_Response (5).pdf" target="_blank" rel="noopener">
+          Cosmology response
+        </a>
+      </b>
+      <em>(Bridge → Core)</em><br>
+      Transport, damping, and boundary behaviour without expansion bookkeeping.
+    </li>
+
+    <li>
+      <b>
+        <a href="pdfs/Emergent_Condensate_Superfluid_Medium_as_a_Finite_Response_Substrate_for_Gravitation_and_Cosmology (8).pdf" target="_blank" rel="noopener">
+          ECSM mechanism / substrate
+        </a>
+      </b>
+      <em>(Program synthesis)</em><br>
+      Minimal physical scaffold and finite-response substrate for the broader framework.
+    </li>
+  </ol>
+
+  <h3>Operational commitments (minimal)</h3>
+  <ul>
+    <li><b>Regime validity:</b> geometric / metric descriptions are effective and can fail when response becomes nonlocal, history-dependent, or coherence-limited.</li>
+    <li><b>Finite response:</b> high excitation / localization activates back-action, dispersion, dissipation channels and breaks linear “memoryless propagation” assumptions.</li>
+    <li><b>Conservative recovery:</b> standard GR/QFT behaviour is recovered in the tested, low-excitation coherent regime.</li>
+  </ul>
+
+  <h3>Falsifiers / failure modes (what would rule this out)</h3>
+  <div class="box">
+    <ul>
+      <li><b>Consistency falsifier:</b> if the framework cannot reproduce standard limits and late-time observables simultaneously under its stated assumptions.</li>
+      <li><b>Empirical falsifier:</b> if independent replications remove key reported anomalies or diagnostics once systematics are controlled.</li>
+      <li><b>Mechanism falsifier:</b> if no plausible microphysical scaffold can yield the required regime structure without contradiction with laboratory analogues or well-tested physics.</li>
+    </ul>
+    <span class="small">
+      This list is intentionally conservative: the programme is designed to be killable.
+    </span>
+  </div>
+
+  <h3>Status labels</h3>
+  <ul>
+    <li><b>Core:</b> defines the framework or its key reinterpretations.</li>
+    <li><b>Bridge:</b> translates the language into standard practice without requiring ontological commitment.</li>
+    <li><b>Empirical:</b> data-facing pipelines and diagnostics.</li>
+    <li><b>Lab / Applied:</b> finite-response behaviour in experimentally accessible systems.</li>
+    <li><b>Notes / Developing:</b> working material, mechanism sketches, or exploratory analyses.</li>
+  </ul>
 
   <h2>Context: Beyond the Diffraction Limit</h2>
   <p>
@@ -247,11 +306,16 @@ If you only read one thread: start at (1) and follow the chain.
     </li>
 
     <li>
-     <strong>Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium</strong> (Core)
-    <br>Horizon formation emerges from finite-response saturation in gradient-dominated shells rather than from enclosed mass alone.
-    <br> <a href="https://doi.org/10.5281/zenodo.19512416">PDF</a>
+      <b>Emergent Condensate Superfluid Medium as a Finite-Response Substrate for Gravitation and Cosmology</b> <em>(Core)</em><br>
+      General substrate paper for ECSM as a finite-response physical medium underlying geometry and cosmology.<br>
+      <a href="pdfs/Emergent_Condensate_Superfluid_Medium_as_a_Finite_Response_Substrate_for_Gravitation_and_Cosmology (8).pdf" target="_blank" rel="noopener">PDF</a>
     </li>
-  
+
+    <li>
+      <b>Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium</b> <em>(Core)</em><br>
+      Horizon formation emerges from finite-response saturation in gradient-dominated shells rather than from enclosed mass alone.<br>
+      <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">DOI / PDF</a>
+    </li>
   </ul>
 
   <h3>Operational / Bridging Papers</h3>
@@ -261,12 +325,29 @@ If you only read one thread: start at (1) and follow the chain.
       Transport, damping, and boundary behaviour without ontological commitment; motivates response language from standard practice.<br>
       <a href="pdfs/Operational_Response_Structure_in_Modern_Cosmology__Transport__Damping__and_Boundary_Behavior_Without_Ontological_Commitment.pdf" target="_blank" rel="noopener">PDF</a>
     </li>
-     
+
     <li>
-     <b>Thermodynamics and Irreversibility as Emergent Properties of Open Physical Systems</h3>
-    <div class="meta">Mechanism-first, interpretation-neutral account of irreversibility and entropy production in open systems.</div>
-    <div class="btns">
-    <a href="pdfs/Thermodynamics_and_Irreversibility_as_Emergent_Properties_of_Open_Physical_Systems%20(5).pdf">PDF</a>
+      <b>Cosmological Inference in the Presence of Finite Propagation Response</b> <em>(Bridge)</em><br>
+      Reframes cosmological tensions as possible inference-regime effects arising from finite propagation response.<br>
+      <a href="pdfs/Cosmological_Inference_in_the_Presence_of_Finite_Propagation_Response (5).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+
+    <li>
+      <b>Thermodynamics and Irreversibility as Emergent Properties of Open Physical Systems</b> <em>(Bridge)</em><br>
+      Mechanism-first, interpretation-neutral account of irreversibility and entropy production in open systems.<br>
+      <a href="pdfs/Thermodynamics_and_Irreversibility_as_Emergent_Properties_of_Open_Physical_Systems (5).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+
+    <li>
+      <b>A Universal Finite-Response Law for Energy Storage and Release in Driven Physical Systems</b> <em>(Bridge)</em><br>
+      A universal internal-state law for delayed release, hysteresis, and non-equilibrium response across driven systems.<br>
+      <a href="pdfs/A_Universal_Finite_Response_Law_for_Energy_Storage_and_Release_in_Driven_Physical_Systems (2).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+
+    <li>
+      <b>Why Many Physical Paradoxes Signal the Breakdown of Effective Descriptions</b> <em>(Context)</em><br>
+      Foundational paradoxes reinterpreted as failures of regime identification rather than contradictions in fundamental law.<br>
+      <a href="pdfs/Why_Many_Physical_Paradoxes_Signal_the_Breakdown_of_Effective_Descriptions (2).pdf" target="_blank" rel="noopener">PDF</a>
     </li>
 
     <li>
@@ -288,6 +369,21 @@ If you only read one thread: start at (1) and follow the chain.
     </li>
   </ul>
 
+  <h3>Cosmology / CMB Signatures</h3>
+  <ul>
+    <li>
+      <b>Acoustic Peak Structure of the Cosmic Microwave Background from Phase Transition Dynamics in an Emergent Condensate Superfluid Cosmological Medium</b> <em>(Cosmology)</em><br>
+      Acoustic peak ladder generated from phase-transition and finite-response propagation physics rather than standard expansion-based interpretation.<br>
+      <a href="pdfs/Acoustic_Peak_Structure_of_the_Cosmic_Microwave_Background_from_Phase_Transition_Dynamics_in_an_Emergent_Condensate_Superfluid_Cosmological_Medium (1).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+
+    <li>
+      <b>Cosmic Birefringence from Finite-Response Photon Transport in an Emergent Condensate Superfluid Medium</b> <em>(Cosmology)</em><br>
+      Polarization rotation from parity-odd finite-response transport, with TB and EB signatures linked to coherence gradients and vorticity.<br>
+      <a href="pdfs/Cosmic_Birefringence_from_Finite_Response_Photon_Transport_in_an_Emergent_Condensate_Superfluid_Medium (4).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+  </ul>
+
   <h3>Interface / Vacuum Coupling</h3>
   <ul>
     <li>
@@ -303,7 +399,7 @@ If you only read one thread: start at (1) and follow the chain.
     </li>
   </ul>
 
-  <h3>Matter Formation / Microphysics (Developing)</h3>
+  <h3>Matter Formation / Microphysics</h3>
   <ul>
     <li>
       <b>Matter Formation as the Breakdown of Linear Propagation</b> <em>(Matter)</em><br>
@@ -318,11 +414,25 @@ If you only read one thread: start at (1) and follow the chain.
     </li>
 
     <li>
-      <b>Microphysics (in progress)</b><br>
-      Excitation taxonomy, coupling rules, and minimal microscopic scaffold for gravity/optics/structure.<br>
+      <b>Microphysics (in progress)</b> <em>(Developing)</em><br>
+      Excitation taxonomy, coupling rules, and minimal microscopic scaffold for gravity, optics, and structure.<br>
       <a href="pdfs/ECSM_Microphysics__Sanity_Draft___A_Minimal_Microscopic_Scaffold_for_Gravity__Optics__and_Structure (6).pdf" target="_blank" rel="noopener">PDF</a>
     </li>
+  </ul>
 
+  <h3>Laboratory / Applied Finite-Response Systems</h3>
+  <ul>
+    <li>
+      <b>Sonoluminescence as Coherence Breakdown: A Non-Markovian Emission Mechanism in Driven Bubble Collapse</b> <em>(Lab / Applied)</em><br>
+      Bubble-collapse emission interpreted as coherence-mediated release in a finite-response medium, with lag and threshold predictions.<br>
+      <a href="pdfs/Sonoluminescence_as_Coherence_Breakdown__A_Non_Markovian_Emission_Mechanism_in_Driven_Bubble_Collapse (3).pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
+
+    <li>
+      <b>The Mpemba Effect as a Finite-Response Coherence Transition</b> <em>(Lab / Applied)</em><br>
+      Freezing reinterpreted as a response-controlled coherence transition rather than a temperature-only effect.<br>
+      <a href="pdfs/The_Mpemba_Effect_as_a_Finite_Response_Coherence_Transition.pdf" target="_blank" rel="noopener">PDF</a>
+    </li>
   </ul>
 
   <hr>
@@ -374,7 +484,7 @@ If you only read one thread: start at (1) and follow the chain.
     <li>
       <b>Quantum emergence ideas</b><br>
       Notes on coherence, measurement, and emergent quantum behaviour.<br>
-      <a href="https://asheldrick-research.github.io/ecsm-framework/pdfs/Quantum_Phenomena_as_Emergent_Dynamics_of_ECSM (11).pdf" target="_blank" rel="noopener">PDF</a>
+      <a href="pdfs/Quantum_Phenomena_as_Emergent_Dynamics_of_ECSM (11).pdf" target="_blank" rel="noopener">PDF</a>
     </li>
   </ul>
 
@@ -402,13 +512,12 @@ If you only read one thread: start at (1) and follow the chain.
   </p>
 
   <p>
-    
-Contact: <a href="mailto:adam.sheldrick.research@gmail.com">
-adam.sheldrick.research@gmail.com</a><br>
-ORCID: <a href="https://orcid.org/0009-0004-3145-757X" target="_blank" rel="noopener">
-https://orcid.org/0009-0004-3145-757X
-</a>
-    
+    Contact:
+    <a href="mailto:adam.sheldrick.research@gmail.com">adam.sheldrick.research@gmail.com</a><br>
+    ORCID:
+    <a href="https://orcid.org/0009-0004-3145-757X" target="_blank" rel="noopener">
+      https://orcid.org/0009-0004-3145-757X
+    </a>
   </p>
 
 </body>
