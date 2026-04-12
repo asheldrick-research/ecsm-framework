@@ -52,3 +52,50 @@ a unified physical ontology that reproduces key gravitational, optical, and cosm
 observations without invoking additional dark components.
 
 Feedback, critique, and independent analysis are welcome.
+
+##RESULTS##
+
+ECSM Late-Time Consistency Test
+
+This repository contains a reproducible implementation of a late-time cosmological consistency test within the Emergent Condensate Superfluid Medium (ECSM) framework.
+
+Overview
+
+The notebook performs a sequential bootstrap test:
+
+1. A canonical ECSM geometry shape is fixed using supernova-derived parameters
+2. The absolute propagation scale is anchored using baryon acoustic oscillation (BAO) constraints
+3. The resulting geometry is used to predict the late-time growth observable f\sigma_8(z)
+4. The prediction is compared against redshift-space distortion (RSD) measurements
+
+Result
+
+Using the canonical configuration:
+
+- χ²/dof ≈ 0.94
+- p-value ≈ 0.51
+- No residual exceeds 2σ
+
+This demonstrates that the ECSM late-time pipeline can produce an observationally viable growth history without additional tuning beyond the canonical geometry and BAO anchor.
+
+Files
+
+- "ECSM_Late_Time_Consistency_Test.ipynb" — main reproducible notebook
+- "data/" — input datasets (RSD, BAO if included)
+- "outputs/" — generated results (fits, plots, summary)
+
+Reproducibility
+
+To reproduce the results:
+
+1. Open the notebook in Google Colab or Jupyter
+2. Set the correct data paths
+3. Run all cells from top to bottom
+
+Citation
+
+If referencing this work, please cite the associated ECSM framework paper and link to this repository.
+
+---
+
+This notebook is intended as a minimal, transparent demonstration of late-time ECSM consistency, rather than a full parameter exploration.
