@@ -53,7 +53,7 @@ observations without invoking additional dark components.
 
 Feedback, critique, and independent analysis are welcome.
 
-##RESULTS##
+## RESULTS
 
 ECSM Late-Time Consistency Test
 
