@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>ECSM – Emergent Condensate Superfluid Medium</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    :root{
+      --blue:#0056b3;
+      --blue2:#0b6bd3;
+      --ink:#111827;
+      --muted:#4b5563;
+      --line:#e5e7eb;
+      --soft:#f6f8fb;
+      --soft2:#fbfcfe;
+      --green:#0f766e;
+      --amber:#a16207;
+      --red:#b91c1c;
+    }
+
+    *{ box-sizing:border-box; }
+
     body{
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 920px;
+      max-width: 1080px;
       margin: 42px auto;
-      padding: 0 18px;
+      padding: 0 18px 48px;
       line-height: 1.65;
-      color: #111;
+      color: var(--ink);
+      background:#fff;
+    }
+
+    h1, h2, h3 { line-height: 1.25; margin: 1.25em 0 0.5em; }
+    h1 { margin-top: 0; font-size: clamp(2rem, 4vw, 3.15rem); letter-spacing:-0.03em; }
+    h2 { border-top:1px solid var(--line); padding-top:28px; margin-top:34px; }
+    h3 { color:#1f2937; }
+    p { margin: 0.7em 0; }
+    a{ color:var(--blue); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    hr{ border:0; border-top:1px solid var(--line); margin: 30px 0; }
+
+    .subtitle{
+      font-size:1.16rem;
+      color:#374151;
+      max-width:900px;
+    }
+
+    .small { color:var(--muted); font-size: 0.96rem; }
+    .tiny { color:var(--muted); font-size: 0.86rem; }
+
+    .box{
+      background:var(--soft);
+      padding:18px 20px;
+      border-left:4px solid var(--blue);
+      margin: 22px 0;
+      border-radius: 10px;
+    }
+
+    .warning{
+      background:#fffbeb;
+      border-left-color:#d97706;
     }
 
     .tag{
@@ -21,34 +68,24 @@
       border: 1px solid #d8dde3;
       border-radius: 999px;
       background:#fff;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color:#333;
       margin-left: 6px;
+      white-space:nowrap;
     }
 
-    h1, h2, h3 { line-height: 1.25; margin: 1.2em 0 0.5em; }
-    h1 { margin-top: 0; }
-    p { margin: 0.7em 0; }
-    a{ color:#0056b3; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-    hr{ border:0; border-top:1px solid #e3e6ea; margin: 26px 0; }
+    .tag.core{ color:#fff; background:var(--blue); border-color:var(--blue); }
+    .tag.new{ color:#fff; background:var(--green); border-color:var(--green); }
+    .tag.active{ color:#fff; background:#7c3aed; border-color:#7c3aed; }
+    .tag.test{ color:#fff; background:var(--amber); border-color:var(--amber); }
 
-    .box{
-      background:#f5f7fa;
-      padding:18px;
-      border-left:4px solid #0056b3;
-      margin: 22px 0;
-      border-radius: 8px;
+    .pillrow{
+      margin: 20px 0 24px;
     }
-
-    .small { color:#444; font-size: 0.96rem; }
-
-    ul{ margin: 0.6em 0 0.9em 1.2em; }
-    li{ margin: 0.7em 0; }
 
     .pillrow a{
       display:inline-block;
-      padding: 6px 10px;
+      padding: 7px 12px;
       margin: 6px 8px 0 0;
       border: 1px solid #d8dde3;
       border-radius: 999px;
@@ -56,12 +93,29 @@
       font-size: 0.95rem;
     }
 
-    .section-note{ margin-top: -6px; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap:14px;
+      margin:18px 0;
+    }
+
+    .statcard{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px 16px;
+    }
+
+    .statcard b{
+      display:block;
+      margin-bottom:4px;
+    }
 
     .latest{
-      background:#fbfcfe;
-      border:1px solid #e3e6ea;
-      border-radius:10px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:12px;
       padding:16px 18px;
       margin: 18px 0 26px;
     }
@@ -70,455 +124,825 @@
       margin-top: 0;
     }
 
+    .section-note{ margin-top: -6px; }
+
+    ul{ margin: 0.6em 0 0.9em 1.2em; }
+    li{ margin: 0.65em 0; }
+
+    code, pre{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    pre{
+      background:#0b1020;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:12px;
+      overflow:auto;
+      line-height:1.45;
+    }
+
+    .searchbar{
+      position:sticky;
+      top:0;
+      z-index:5;
+      background:rgba(255,255,255,0.96);
+      backdrop-filter: blur(6px);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      margin:22px 0 18px;
+      box-shadow:0 8px 24px rgba(15,23,42,0.06);
+    }
+
+    .searchbar input{
+      width:100%;
+      padding:11px 13px;
+      font-size:1rem;
+      border:1px solid #cfd6df;
+      border-radius:10px;
+    }
+
+    .category{
+      margin-top:24px;
+    }
+
+    .paper-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+
+    .paper{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px 16px;
+      margin:12px 0;
+      background:#fff;
+    }
+
+    .paper-title{
+      font-weight:700;
+      line-height:1.35;
+    }
+
     .paper-note{
-      color:#333;
-      font-size:0.97rem;
+      margin-top:5px;
+      color:#374151;
+      font-size:0.96rem;
+    }
+
+    .paper-links{
+      margin-top:8px;
+      font-size:0.94rem;
+    }
+
+    .paper-meta{
+      color:var(--muted);
+      font-size:0.88rem;
+      margin-top:4px;
+    }
+
+    .count{
+      color:var(--muted);
+      font-weight:400;
+      font-size:0.92rem;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      margin-top:40px;
+      padding-top:24px;
+      color:var(--muted);
     }
   </style>
 </head>
 
 <body>
-  <h1>Emergent Condensate Superfluid Medium (ECSM)</h1>
+  <h1>Emergent Condensate Superfluid Medium</h1>
 
-  <p>
-    ECSM is a response-based physical framework in which gravitational, optical,
-    quantum, and cosmological phenomena arise from the collective dynamics of a
-    coherent cosmic medium, rather than from fundamental spacetime curvature.
+  <p class="subtitle">
+    ECSM is an independent finite-response research programme exploring whether
+    spacetime geometry, inertia, matter structure, redshift, interaction behaviour,
+    quantum-like structure, and time itself can emerge from a coherent medium with finite
+    reconfiguration capacity.
   </p>
 
   <div class="box">
-    <b>Core idea:</b><br>
-    Geometry, gravitational lensing, redshift, structure growth, horizons, and
-    measurement are treated as effective, scale-dependent limits of finite-coherence
-    propagation and medium response.
+    <b>Core idea:</b><br />
+    Known physics is recovered in the high-coherence limit. Possible deviations arise
+    when finite response, coherence loss, or metric-closure failure become important.
   </div>
 
   <div class="pillrow">
+    <a href="#start">Start here</a>
+    <a href="#programme">Programme map</a>
+    <a href="#papers">Papers by category</a>
+    <a href="#falsifiability">Falsifiability</a>
     <a href="what-is-ecsm.html">What is ECSM?</a>
     <a href="results.html">CMB Lensing Test</a>
-    <a href="papers.html">Papers index</a>
+    <a href="papers.html">Old papers index</a>
   </div>
 
-  <div class="latest">
+  <div class="grid">
+    <div class="statcard">
+      <b>Central variable</b>
+      <span class="small">Coherence / response efficiency</span><br />
+      <code>χ = 1 / [1 + (τresp / τdrive)^p]</code>
+    </div>
+    <div class="statcard">
+      <b>High-coherence limit</b>
+      <span class="small">GR/SR/QM-like effective behaviour recovered.</span>
+    </div>
+    <div class="statcard">
+      <b>Finite-response regime</b>
+      <span class="small">Lag, damping, localisation, saturation, metric-closure failure.</span>
+    </div>
+    <div class="statcard">
+      <b>Status</b>
+      <span class="small">Developing theoretical framework with data-facing tests.</span>
+    </div>
+  </div>
+
+  <section class="latest">
     <h3>Latest additions</h3>
     <ul>
       <li>
-        <b>Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium</b>
-        <span class="tag">New</span><br>
-        <span class="paper-note">Gradient-dominated shell structure and structure-dependent horizon formation.</span><br>
-        <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">DOI / PDF</a>
+        <b>Finite Radiative Self-Energy and Propagator Doorway</b>
+        <span class="tag new">New</span><br />
+        <span class="paper-note">Electron-like packet bridge toward finite self-energy and propagator structure.</span><br />
+        <a href="https://doi.org/10.5281/zenodo.20442918" target="_blank" rel="noopener">DOI / PDF</a>
       </li>
       <li>
-        <b>Sonoluminescence as Coherence Breakdown</b>
-        <span class="tag">New</span><br>
-        <span class="paper-note">A finite-response, coherence-mediated release model for driven bubble collapse.</span><br>
-        <a href="pdfs/Sonoluminescence_as_Coherence_Breakdown__A_Non_Markovian_Emission_Mechanism_in_Driven_Bubble_Collapse (3).pdf" target="_blank" rel="noopener">PDF</a>
+        <b>Clock Rates Without Fundamental Time</b>
+        <span class="tag new">New</span><br />
+        <span class="paper-note">Time dilation as finite-response reconfiguration burden; time as emergent process-rate.</span><br />
+        <a href="https://doi.org/10.5281/zenodo.20439823" target="_blank" rel="noopener">DOI / PDF</a>
       </li>
       <li>
-        <b>A Universal Finite-Response Law for Energy Storage and Release in Driven Physical Systems</b>
-        <span class="tag">New</span><br>
-        <span class="paper-note">A unifying internal-state law for lag, hysteresis, and delayed release across driven systems.</span><br>
-        <a href="pdfs/A_Universal_Finite_Response_Law_for_Energy_Storage_and_Release_in_Driven_Physical_Systems (2).pdf" target="_blank" rel="noopener">PDF</a>
+        <b>A Minimal Response Functional for Stable Medium Excitations</b>
+        <span class="tag new">New</span><br />
+        <span class="paper-note">Response functional for stable excitation structure in ECSM.</span><br />
+        <a href="https://doi.org/10.5281/zenodo.20427968" target="_blank" rel="noopener">DOI / PDF</a>
       </li>
     </ul>
-  </div>
+  </section>
 
-  <h2>Key Results</h2>
-  <ul>
-    <li><a href="results.html">CMB lensing suppression test</a> (high-ℓ behaviour)</li>
-    <li>Unified description of inertia, gravity, lensing, horizons, and structure growth</li>
-    <li>No requirement for dark matter, dark energy, or cosmic expansion (within ECSM)</li>
-    <li>Explicit operational requirements, constraints, and falsifiable failure modes</li>
-    <li>Emergent acoustic structure, birefringence, and finite-response propagation signatures in cosmology</li>
-  </ul>
+  <section id="start">
+    <h2>Start here</h2>
+    <p class="section-note small">
+      For new readers, these papers define the current spine of the framework.
+    </p>
 
-  <hr>
+    <ol>
+      <li>
+        <b>Derivation of the ECSM Coherence Parameter from Compressible Medium Dynamics</b><br />
+        Establishes <code>χ</code> as finite-response transfer efficiency rather than a free modifier.<br />
+        <a href="https://doi.org/10.5281/zenodo.20286102" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.20286102</a>
+      </li>
+      <li>
+        <b>Emergent Geometry from Finite-Response Media: Recovery of General Relativity as the Coherent Limit of ECSM</b><br />
+        Shows how GR-like weak-field structure appears in the coherent limit.<br />
+        <a href="https://doi.org/10.5281/zenodo.19909690" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.19909690</a>
+      </li>
+      <li>
+        <b>Local Lorentz Recovery in ECSM</b><br />
+        Clarifies why ECSM is not an old-style detectable-aether model.<br />
+        <a href="https://doi.org/10.5281/zenodo.20356887" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.20356887</a>
+      </li>
+      <li>
+        <b>Beyond the Coherent Limit</b><br />
+        Defines finite-response corrections and metric-closure failure as the testable boundary.<br />
+        <a href="https://doi.org/10.5281/zenodo.20348177" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.20348177</a>
+      </li>
+      <li>
+        <b>Clock Rates Without Fundamental Time</b><br />
+        Interprets proper time and time dilation as accumulated matter-process evolution.<br />
+        <a href="https://doi.org/10.5281/zenodo.20439823" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.20439823</a>
+      </li>
+    </ol>
+  </section>
 
-  <h2 id="program">Program</h2>
-  <p class="section-note small">
-    A curated map of the ECSM research programme: core claims, regime structure, reading order, and falsifiers.
-  </p>
+  <section id="programme">
+    <h2>Programme map</h2>
 
-  <div class="box">
-    <b>ECSM in one sentence:</b><br>
-    Gravitational, optical, quantum, and cosmological phenomena arise as effective,
-    scale-dependent regimes of propagation and response in a coherent medium, with
-    “limits” (Planck scale, horizons, measurement, and coherence transitions) corresponding
-    to finite-response boundaries rather than fundamental spacetime discreteness.
-  </div>
+    <div class="box">
+      <b>ECSM in one sentence:</b><br />
+      Geometry, time, inertia, matter, redshift, lensing, and interaction behaviour are treated
+      as effective regimes of finite-response propagation and reconfiguration in a coherent medium.
+    </div>
 
-  <h3>The spine (three-layer stack)</h3>
-  <ul>
-    <li><b>Operational / Effective layer:</b> what can be claimed without committing to microphysics (regime-limited geometry, finite response, coherence loss, boundary behaviour).</li>
-    <li><b>Mechanism layer:</b> what ECSM proposes underneath (a coherent substrate with channel structure, dispersion/back-action, response saturation, and coupling rules).</li>
-    <li><b>Tests / constraints layer:</b> what rules it out (internal consistency constraints + empirical diagnostics with reproducible pipelines).</li>
-  </ul>
+    <pre>
+ECSM Framework
+├── 1. Core foundations
+│   ├── finite-response medium
+│   ├── coherence parameter χ
+│   ├── state variables
+│   ├── response topology
+│   ├── law as stable response
+│   └── stability functional
+│
+├── 2. Relativity, spacetime, and time
+│   ├── GR as coherent limit
+│   ├── local Lorentz recovery
+│   ├── metric-closure failure
+│   ├── time as process-rate
+│   └── inertia as reconfiguration resistance
+│
+├── 3. Cosmology and astrophysics
+│   ├── redshift without expansion
+│   ├── SPARC galaxy dynamics
+│   ├── lensing and propagation constraints
+│   ├── CMB TT/EE/TE structure
+│   └── late-time cross-probe tests
+│
+├── 4. Matter and quantum structure
+│   ├── emergent matter
+│   ├── bipolar / triadic matter sector
+│   ├── hydrogenic spectra
+│   ├── shell-like hierarchy
+│   └── gauge / measurement / exclusion bridges
+│
+├── 5. Electron-like packet programme
+│   ├── SU(2) internal orientation
+│   ├── Clifford / Dirac closure
+│   ├── gauge-covariant phase coupling
+│   ├── Pauli and Schwinger-scale magnetic structure
+│   └── finite self-energy / propagator doorway
+│
+└── 6. Reproducibility and tests
+    ├── notebooks
+    ├── datasets
+    ├── figure-generation scripts
+    ├── frozen-version outputs
+    └── paper-linked computational pipelines
+    </pre>
+  </section>
 
-  <h3>Reading order (recommended)</h3>
-  <p class="small">
-    If you only read one thread: start at (1) and follow the chain.
-  </p>
+  <section id="falsifiability">
+    <h2>Falsifiability</h2>
 
-  <ol>
-    <li>
-      <b>
-        <a href="pdfs/What_the_Planck_Scale_Limits__Geometry__Not_Spacetime (1).pdf" target="_blank" rel="noopener">
-          Planck-scale reinterpretation
-        </a>
-      </b>
-      <em>(Core)</em><br>
-      Planck length as an ultraviolet saturation boundary for geometric response.
-    </li>
+    <div class="box warning">
+      <b>ECSM is designed to be testable, not protected from failure.</b>
+      <ul>
+        <li><b>Coherent-limit recovery:</b> ECSM must recover local Lorentz invariance, weak-field GR, standard clock behaviour, and ordinary low-energy physics where <code>χ → 1</code>.</li>
+        <li><b>No arbitrary deviations:</b> finite-response deviations should appear only where <code>τdrive ≲ τresp</code> or metric closure fails.</li>
+        <li><b>Correlated breakdown:</b> ECSM predicts sector-linked deviations, not isolated anomalies.</li>
+        <li><b>Cross-probe consistency:</b> redshift, lensing, growth, dynamics, and CMB structure must be tested together.</li>
+        <li><b>Matter-sector closure:</b> electron-like packet results must keep reducing free assumptions and recover known structures quantitatively.</li>
+      </ul>
+    </div>
+  </section>
 
-    <li>
-      <b>
-        <a href="pdfs/Black_Hole_Horizons_as_Finite_Response_Boundaries_of_Geometric_Description.pdf" target="_blank" rel="noopener">
-          Horizon reinterpretation
-        </a>
-      </b>
-      <em>(Core)</em><br>
-      Horizons as finite-response / coherence-transition boundaries.
-    </li>
+  <section id="papers">
+    <h2>Papers by category</h2>
+    <p class="section-note small">
+      Search or browse the ECSM paper sequence. DOI links open Zenodo records in a new tab.
+    </p>
 
-    <li>
-      <b>
-        <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">
-          Shell-localized gravitational response
-        </a>
-      </b>
-      <em>(Core)</em><br>
-      Horizon formation from gradient-dominated shell structure rather than enclosed mass alone.
-    </li>
+    <div class="searchbar">
+      <input id="paperSearch" type="search" placeholder="Search papers by title, category, DOI, or keyword..." />
+      <div class="tiny" id="paperCount"></div>
+    </div>
 
-    <li>
-      <b>
-        <a href="pdfs/Quantum_Measurement_as_a_Finite_Response_Transition (1).pdf" target="_blank" rel="noopener">
-          Measurement &amp; decoherence
-        </a>
-      </b>
-      <em>(Bridge)</em><br>
-      Measurement framed as coherence loss and response activation.
-    </li>
+    <div id="paperSections"></div>
+  </section>
 
-    <li>
-      <b>
-        <a href="pdfs/Cosmological_Inference_in_the_Presence_of_Finite_Propagation_Response (5).pdf" target="_blank" rel="noopener">
-          Cosmology response
-        </a>
-      </b>
-      <em>(Bridge → Core)</em><br>
-      Transport, damping, and boundary behaviour without expansion bookkeeping.
-    </li>
+  <footer>
+    <p>
+      <a href="papers.html">Old papers index</a> ·
+      <a href="what-is-ecsm.html">What is ECSM?</a> ·
+      <a href="results.html">CMB Lensing Test</a>
+    </p>
 
-    <li>
-      <b>
-        <a href="pdfs/Emergent_Condensate_Superfluid_Medium_as_a_Finite_Response_Substrate_for_Gravitation_and_Cosmology (8).pdf" target="_blank" rel="noopener">
-          ECSM mechanism / substrate
-        </a>
-      </b>
-      <em>(Program synthesis)</em><br>
-      Minimal physical scaffold and finite-response substrate for the broader framework.
-    </li>
-  </ol>
+    <p>
+      Contact:
+      <a href="mailto:adam.sheldrick.research@gmail.com">adam.sheldrick.research@gmail.com</a><br />
+      ORCID:
+      <a href="https://orcid.org/0009-0004-3145-757X" target="_blank" rel="noopener">
+        https://orcid.org/0009-0004-3145-757X
+      </a>
+    </p>
 
-  <h3>Operational commitments (minimal)</h3>
-  <ul>
-    <li><b>Regime validity:</b> geometric / metric descriptions are effective and can fail when response becomes nonlocal, history-dependent, or coherence-limited.</li>
-    <li><b>Finite response:</b> high excitation / localization activates back-action, dispersion, dissipation channels and breaks linear “memoryless propagation” assumptions.</li>
-    <li><b>Conservative recovery:</b> standard GR/QFT behaviour is recovered in the tested, low-excitation coherent regime.</li>
-  </ul>
+    <p class="small">
+      ECSM is an independent theoretical research programme. It is not presented as established physics.
+      Its purpose is to explore whether known physical structures can be recovered as coherent-limit behaviour
+      of a finite-response medium, and whether controlled departures may appear where that coherence fails.
+    </p>
+  </footer>
 
-  <h3>Falsifiers / failure modes (what would rule this out)</h3>
-  <div class="box">
-    <ul>
-      <li><b>Consistency falsifier:</b> if the framework cannot reproduce standard limits and late-time observables simultaneously under its stated assumptions.</li>
-      <li><b>Empirical falsifier:</b> if independent replications remove key reported anomalies or diagnostics once systematics are controlled.</li>
-      <li><b>Mechanism falsifier:</b> if no plausible microphysical scaffold can yield the required regime structure without contradiction with laboratory analogues or well-tested physics.</li>
-    </ul>
-    <span class="small">
-      This list is intentionally conservative: the programme is designed to be killable.
-    </span>
-  </div>
+  <script>
+    const papers = [
+      // Core foundations
+      {
+        category: "1. Core foundations",
+        title: "Derivation of the ECSM Coherence Parameter from Compressible Medium Dynamics",
+        doi: "10.5281/zenodo.20286102",
+        note: "Derives χ as finite-response transfer efficiency."
+      },
+      {
+        category: "1. Core foundations",
+        title: "Law as Stable Response: A Pre-Law Ontology for ECSM",
+        doi: "10.5281/zenodo.20285135",
+        note: "Frames physical law as stable response structure."
+      },
+      {
+        category: "1. Core foundations",
+        title: "The Nature of Surviving Law: Bipolar Constraint and Hierarchical Stability in ECSM",
+        doi: "10.5281/zenodo.20363858",
+        note: "Develops law survival, bipolar constraint, and hierarchical stability."
+      },
+      {
+        category: "1. Core foundations",
+        title: "The Coherence-Response Threshold in ECSM: Finite-Response Breakdown as the Test of Emergent Law",
+        doi: "10.5281/zenodo.20364082",
+        note: "Defines breakdown thresholds as a test of emergent law."
+      },
+      {
+        category: "1. Core foundations",
+        title: "Toward the ECSM Stability Functional: From Primitive Response to Stable Excitations",
+        doi: "10.5281/zenodo.20364834",
+        note: "Introduces the stability-functional direction."
+      },
+      {
+        category: "1. Core foundations",
+        title: "Stable Excitations in ECSM: Matter as Localised Response of the Stability Functional",
+        doi: "10.5281/zenodo.20365292",
+        note: "Matter as localised response of a stability functional."
+      },
+      {
+        category: "1. Core foundations",
+        title: "A Minimal Response Functional for Stable Medium Excitations in the Emergent Condensate Superfluid Medium Framework",
+        doi: "10.5281/zenodo.20427968",
+        note: "Minimal response functional for stable excitation structure.",
+        tag: "New"
+      },
 
-  <h3>Status labels</h3>
-  <ul>
-    <li><b>Core:</b> defines the framework or its key reinterpretations.</li>
-    <li><b>Bridge:</b> translates the language into standard practice without requiring ontological commitment.</li>
-    <li><b>Empirical:</b> data-facing pipelines and diagnostics.</li>
-    <li><b>Lab / Applied:</b> finite-response behaviour in experimentally accessible systems.</li>
-    <li><b>Notes / Developing:</b> working material, mechanism sketches, or exploratory analyses.</li>
-  </ul>
+      // Relativity and spacetime
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Emergent Geometry from Finite-Response Media: Recovery of General Relativity as the Coherent Limit of ECSM",
+        doi: "10.5281/zenodo.19909690",
+        note: "GR recovery as coherent long-wavelength metric closure.",
+        tag: "Core"
+      },
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Emergent Geometry from Finite-Response Dynamics: A Unified Framework for Gravity, Propagation, and Cosmology",
+        doi: "10.5281/zenodo.19897603",
+        note: "Unified gravity, propagation, and cosmology scaffold."
+      },
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Emergent Geometry from Finite-Response Dynamics: Gravity and Inertia in a Condensate Cosmology",
+        doi: "10.5281/zenodo.19535594",
+        note: "Early gravity and inertia formulation."
+      },
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Local Lorentz Recovery in ECSM: Special Relativity as the Coherent Propagation Limit",
+        doi: "10.5281/zenodo.20356887",
+        note: "Local Lorentz recovery and non-aether framing.",
+        tag: "Core"
+      },
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Beyond the Coherent Limit: Finite-Response Corrections and Metric-Closure Failure in ECSM",
+        doi: "10.5281/zenodo.20348177",
+        note: "Defines finite-response corrections and metric-closure failure.",
+        tag: "Core"
+      },
+      {
+        category: "2. Relativity, spacetime, and time",
+        title: "Clock Rates Without Fundamental Time: Kinematic and Gravitational Time Dilation as Finite-Response Reconfiguration Burden in the ECSM Framework",
+        doi: "10.5281/zenodo.20439823",
+        note: "Time dilation as finite-response reconfiguration burden; time as emergent process-rate.",
+        tag: "New"
+      },
 
-  <h2>Context: Beyond the Diffraction Limit</h2>
-  <p>
-    Recent experimental advances in near-field and coherence-based optical techniques
-    demonstrate that many traditional resolution limits arise from assumptions about
-    propagating radiation, rather than from fundamental physical constraints.
-  </p>
-  <p>
-    Modern probes can access sub-wavelength structure by measuring local electromagnetic
-    response and coherence, bypassing far-field diffraction. These methods reveal structure
-    through interaction and response, rather than image formation by free-space photons.
-  </p>
-  <p>
-    This direction aligns with the ECSM perspective, where light, geometry, and quantum
-    phenomena are finite-coherence excitations and medium responses, and where “limits”
-    reflect propagation regimes.
-  </p>
+      // Cosmology and astrophysics
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Redshift without Expansion from Finite-Response Optical Propagation in ECSM",
+        doi: "10.5281/zenodo.20129337",
+        note: "Redshift as cumulative finite-response optical propagation.",
+        tag: "Core"
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Separating Geometry, Scale, and Growth in Late-Time Cosmology without Expansion",
+        doi: "10.5281/zenodo.19536801",
+        note: "Separates late-time geometry, scale, and growth without expansion."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Emergent Cosmic Structure from ECSM: Linear Growth Without Dark Matter or Expansion",
+        doi: "10.5281/zenodo.19536294",
+        note: "Linear growth branch without dark matter or expansion."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Coherence, Saturation, and Structure Formation in a Finite-Response Cosmological Medium",
+        doi: "10.5281/zenodo.19983109",
+        note: "Structure formation as coherence and saturation response."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Emergent Galactic Dynamics from Finite-Response Media: A Coherence-Based Origin of the Tully-Fisher Relation",
+        doi: "10.5281/zenodo.19681083",
+        note: "Coherence-based Tully-Fisher relation."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "ECSM Phenomenology: Finite-Response Universality and Galactic Rotation Curves",
+        doi: "10.5281/zenodo.20051503",
+        note: "Finite-response universality and galactic rotation curves."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Emergent Finite-Response Dynamics in SPARC Rotation Curves: A Dark-Matter-Free ECSM Test Across 175 Disk Galaxies",
+        doi: "10.5281/zenodo.20184520",
+        note: "SPARC rotation-curve test across 175 disk galaxies.",
+        tag: "Test"
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Emergent Spacetime Optics from a Finite-Response Cosmological Medium: Weak Lensing Suppression, Non-Metric Propagation, and CMB Phase Signatures",
+        doi: "10.5281/zenodo.19518946",
+        note: "Weak lensing suppression, non-metric propagation, and CMB phase signatures."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "ECSM Phenomenology II: Lensing, Propagation, and Cosmological Constraints",
+        doi: "10.5281/zenodo.20053118",
+        note: "Lensing as propagation response; constraints and observational signatures."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Acoustic Structure of the Cosmic Microwave Background from a Finite-Response Framework: A Unified TT-EE-TE Analysis",
+        doi: "10.5281/zenodo.20003390",
+        note: "CMB acoustic structure across TT, EE, and TE.",
+        tag: "Test"
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium",
+        doi: "10.5281/zenodo.19512417",
+        note: "Horizon formation from shell-localized finite-response saturation."
+      },
+      {
+        category: "3. Cosmology and astrophysics",
+        title: "Stellar Surfaces as Interface Physics: Boundary Conditions, Mode Coupling, and Effective Vacuum Response",
+        doi: "10.5281/zenodo.20322569",
+        note: "Stellar surfaces as interface physics and vacuum response."
+      },
 
-  <hr>
+      // Matter and quantum structure
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Matter from Finite-Response Dynamics in ECSM: Saturation, Localization, and the Origin of Internal Structure",
+        doi: "10.5281/zenodo.20083825",
+        note: "Matter from saturation, localization, and internal structure."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Matter from Finite-Response Dynamics in the ECSM Framework",
+        doi: "10.5281/zenodo.20089589",
+        note: "General emergent matter paper."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Transition Dynamics of Localized Excitations in a Finite-Response Medium",
+        doi: "10.5281/zenodo.20058788",
+        note: "Transition dynamics of localized excitations."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "A Bipolar Multi-Component ECSM Matter Sector: Emergent Charge Quantization, Mirror Splitting, and Layered Recurrence",
+        doi: "10.5281/zenodo.20285432",
+        note: "Bipolar matter sector, charge quantization, mirror splitting, recurrence."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "From UV Saturation to Triadic Matter Branching in ECSM: The Missing Bridge from Localisation to Bipolar Components",
+        doi: "10.5281/zenodo.20411999",
+        note: "Bridge from localization to triadic/bipolar matter branching."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Two-Branch versus Three-Channel Closure Splitting in ECSM: A Minimal Test of Triadic Matter Branching",
+        doi: "10.5281/zenodo.20412193",
+        note: "Minimal test of two-branch versus three-channel closure."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Neutral Closure, Weak SU(2)L, and Higgs-Like Branch Locking in ECSM: A Bridge from Triadic Matter Branching to Chiral Weak Coupling",
+        doi: "10.5281/zenodo.20415460",
+        note: "Triadic matter branching to weak SU(2)L and Higgs-like branch locking."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Atomic Shell Structure from Response Degeneracy in the ECSM Framework",
+        doi: "10.5281/zenodo.20057922",
+        note: "Atomic shell structure from response degeneracy."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Shell Structure and Bonding from Shared Coherent Excitations in the ECSM Framework",
+        doi: "10.5281/zenodo.20023945",
+        note: "Shell structure and bonding from shared coherent excitations."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Hydrogenic Spectra from Finite-Response ECSM Potentials",
+        doi: "10.5281/zenodo.20088808",
+        note: "Hydrogenic spectra from finite-response ECSM potentials."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Quantum Structure in ECSM: Spin, Measurement, Exclusion, and Bell Correlations from Coherent Bipolar Response",
+        doi: "10.5281/zenodo.20084106",
+        note: "Quantum-structure bridge: spin, measurement, exclusion, Bell correlations."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Emergent Gauge Structure and Electromagnetism in the Emergent Condensate Superfluid Medium (ECSM)",
+        doi: "10.5281/zenodo.19984518",
+        note: "Gauge structure and electromagnetism as emergent phase-response behaviour."
+      },
+      {
+        category: "4. Matter and quantum structure",
+        title: "Excitation, Matter, and Medium-Like Coherence in the Emergent Condensate Superfluid Medium Framework",
+        doi: "10.5281/zenodo.20426242",
+        note: "Matter as less excitation-disordered and more medium-coherent."
+      },
 
-  <h2>Publications</h2>
-  <p class="section-note small">
-    Core papers intended to define, constrain, and test the ECSM framework.
-  </p>
+      // Electron-like packet programme
+      {
+        category: "5. Electron-like packet programme",
+        title: "Relativistic Spinor Structure from Coherent Bipolar Response in ECSM: A Dirac-Sector Bridge",
+        doi: "10.5281/zenodo.20370299",
+        note: "Spinor structure and Dirac-sector bridge."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Internal Orientation of the ECSM Electron-Like Packet: A Minimal SU(2) Closure Test",
+        doi: "10.5281/zenodo.20373507",
+        note: "Minimal SU(2) internal-orientation closure test."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Dirac-Like Propagation of an Electron-Like Response Packet in ECSM",
+        doi: "10.5281/zenodo.20377310",
+        note: "Dirac-like propagation of an electron-like packet."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Response-Potential Dynamics of an Electron-Like ECSM Packet",
+        doi: "10.5281/zenodo.20380698",
+        note: "Response-potential dynamics for an electron-like packet."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Gauge-Covariant Phase Coupling of an Electron-Like ECSM Response Packet",
+        doi: "10.5281/zenodo.20387223",
+        note: "Gauge-covariant phase-coupling bridge."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Fermion-Like Antisymmetry and Exclusion of Electron-Like ECSM Response Packets",
+        doi: "10.5281/zenodo.20387923",
+        note: "Fermion-like antisymmetry and exclusion."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Many-Mode Fermion-Like Filling and Shell-Capacity Structure of Electron-Like ECSM Response Packets",
+        doi: "10.5281/zenodo.20392530",
+        note: "Many-mode filling and shell-capacity structure."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Emergent Shell-Like Filling Hierarchy of Electron-Like ECSM Response Packets",
+        doi: "10.5281/zenodo.20393553",
+        note: "Shell-like filling hierarchy for electron-like packets."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Response-Centre Bound-State Spectrum and Shell-Like Hierarchy of Electron-Like ECSM Packets",
+        doi: "10.5281/zenodo.20394440",
+        note: "Bound-state spectrum and shell-like hierarchy."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Controlled Anisotropic Fine-Structure-Like Splitting of ECSM Electron-Like Bound Shells",
+        doi: "10.5281/zenodo.20400604",
+        note: "Fine-structure-like splitting from controlled anisotropy."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Structured Transition Rules and Anisotropic Spectral Gaps in ECSM Electron-Like Bound Shells",
+        doi: "10.5281/zenodo.20402573",
+        note: "Transition rules and anisotropic spectral gaps."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Operator-Derived Transition Amplitudes, Coherence-Gated Sum Rules, and Family-Leakage Diagnostics in ECSM Electron-Like Bound Shells",
+        doi: "10.5281/zenodo.20418493",
+        note: "Operator-derived transition amplitudes and sum rules."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "From Operator-Derived Transition Amplitudes to Finite-Response Emission Kernels in an ECSM Electron-Like Packet",
+        doi: "10.5281/zenodo.20419274",
+        note: "Finite-response emission kernels from transition amplitudes."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "A Dimensionless Rest-Energy Functional for an ECSM Electron-Like Packet",
+        doi: "10.5281/zenodo.20426010",
+        note: "Dimensionless rest-energy functional."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Scale Closure Requirements for an ECSM Electron-Like Packet Rest-Energy Functional",
+        doi: "10.5281/zenodo.20426930",
+        note: "Scale-closure requirements for rest-energy functional."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "A Medium-Scale Generator Test for the ECSM Electron-Like Packet",
+        doi: "10.5281/zenodo.20427630",
+        note: "Medium-scale generator test."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "A Pre-Target Stiffness-Action Mass-Scale Rule for an ECSM Electron-Like Packet",
+        doi: "10.5281/zenodo.20430042",
+        note: "Pre-target stiffness-action mass-scale rule."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Single-Action Recovery of an Electron-Like Packet and Near-Electron Rest-Energy Scale in the ECSM Framework",
+        doi: "10.5281/zenodo.20432763",
+        note: "Single-action recovery and near-electron rest-energy scale."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Dirac-Limit Propagation of an Electron-Like Packet in the ECSM Framework",
+        doi: "10.5281/zenodo.20434842",
+        note: "Dirac-limit propagation in the electron-like packet branch."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Emergent Gauge Coupling of an Electron-Like Packet in the ECSM Framework",
+        doi: "10.5281/zenodo.20435159",
+        note: "Emergent gauge coupling for the electron-like packet."
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "Pauli-Limit Magnetic Coupling and Tree-Level Magnetic Moment of an Electron-Like Packet in the ECSM Framework",
+        doi: "10.5281/zenodo.20435432",
+        note: "Pauli-limit magnetic coupling and tree-level magnetic moment.",
+        tag: "Active"
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "A Schwinger-Scale One-Loop Magnetic-Moment Doorway for an Electron-Like Packet in the ECSM Framework",
+        doi: "10.5281/zenodo.20435874",
+        note: "Schwinger-scale one-loop magnetic-moment doorway.",
+        tag: "Active"
+      },
+      {
+        category: "5. Electron-like packet programme",
+        title: "A Finite Radiative Self-Energy and Propagator Doorway for an Electron-Like Packet in the ECSM Framework",
+        doi: "10.5281/zenodo.20442918",
+        note: "Finite radiative self-energy and propagator doorway.",
+        tag: "New"
+      },
 
-  <h3>Core Framework</h3>
-  <ul>
-    <li>
-      <b>Unified ECSM Cosmology</b> <em>(Core)</em><br>
-      A unified framework for gravity, redshift, and structure formation without dark matter or expansion.<br>
-      <a href="pdfs/Unified_Emergent_Condensate_Superfluid_Medium__ECSM__Cosmology__A_Framework_for_Gravity__Redshift__and_Structure_Formation_Without_DM_or_Expansion_ (14).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+      // Interpretive and supporting
+      {
+        category: "6. Interpretive and supporting papers",
+        title: "The Casimir Effect as Boundary-Relaxation Stress in a Finite-Response Coherent Medium",
+        doi: "10.5281/zenodo.20266269",
+        note: "Casimir effect as boundary-relaxation stress."
+      },
+      {
+        category: "6. Interpretive and supporting papers",
+        title: "Why Many Physical Paradoxes Signal the Breakdown of Effective Descriptions",
+        doi: "10.5281/zenodo.20208400",
+        note: "Paradoxes as signs of effective-description breakdown."
+      },
+      {
+        category: "6. Interpretive and supporting papers",
+        title: "Persistent Structural Tensions in Contemporary Physics and the Operational Requirements for Their Resolution",
+        doi: "10.5281/zenodo.20208307",
+        note: "Structural tensions and operational requirements."
+      },
+      {
+        category: "6. Interpretive and supporting papers",
+        title: "Finite-Response Regularisation of Nonlinear Cascades and Implications for Singularity Formation",
+        doi: "10.5281/zenodo.19892161",
+        note: "Finite-response regularisation and singularity formation."
+      },
+      {
+        category: "6. Interpretive and supporting papers",
+        title: "Thermodynamics and Irreversibility as Emergent Properties of Open Physical Systems: A Mechanism-First, Interpretation-Neutral Perspective",
+        doi: "10.5281/zenodo.20321690",
+        note: "Thermodynamics and irreversibility as emergent open-system properties."
+      }
+    ];
 
-    <li>
-      <b>Unified Gravity &amp; Inertial Dynamics</b> <em>(Core)</em><br>
-      Inertia and gravity from medium dynamics, with macroscopic predictions and consistency checks.<br>
-      <a href="pdfs/ECSM_Dynamics_Without_Curvature__Gravity__Inertia__and_Emergent_Geometry_in_a_Superfluid_Cosmology (16).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+    const categoryOrder = [
+      "1. Core foundations",
+      "2. Relativity, spacetime, and time",
+      "3. Cosmology and astrophysics",
+      "4. Matter and quantum structure",
+      "5. Electron-like packet programme",
+      "6. Interpretive and supporting papers"
+    ];
 
-    <li>
-      <b>Emergent Spacetime Optics</b> <em>(Primary)</em><br>
-      Non-metric light propagation, weak-lensing suppression, and phase/coherence signatures.<br>
-      <a href="pdfs/Emergent_Spacetime_Optics_from_ECSM.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+    function doiUrl(doi){
+      return `https://doi.org/${doi}`;
+    }
 
-    <li>
-      <b>UV Completion &amp; Light Elements</b> <em>(Companion)</em><br>
-      Coherence-gated ultraviolet behaviour and light-element constraints.<br>
-      <a href="pdfs/Coherence_Gated_Ultraviolet_Completion_and_Light_Element_Constraints_in_Emergent_Condensate__Superfluid_Cosmology (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+    function tagClass(tag){
+      if(!tag) return "";
+      const t = tag.toLowerCase();
+      if(t === "core") return "core";
+      if(t === "new") return "new";
+      if(t === "active") return "active";
+      if(t === "test") return "test";
+      return "";
+    }
 
-    <li>
-      <b>Geometry / Growth Separation</b> <em>(Draft)</em><br>
-      Disentangling geometric, scale, and growth effects without cosmic expansion.<br>
-      <a href="pdfs/ECSM_Separating_Geometry__Scale__and_Growth_in_Late_Time_Cosmology_without_Expansion (5).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+    function renderPapers(filter = ""){
+      const root = document.getElementById("paperSections");
+      const count = document.getElementById("paperCount");
+      const q = filter.trim().toLowerCase();
 
-    <li>
-      <b>Emergent Condensate Superfluid Medium as a Finite-Response Substrate for Gravitation and Cosmology</b> <em>(Core)</em><br>
-      General substrate paper for ECSM as a finite-response physical medium underlying geometry and cosmology.<br>
-      <a href="pdfs/Emergent_Condensate_Superfluid_Medium_as_a_Finite_Response_Substrate_for_Gravitation_and_Cosmology (8).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+      root.innerHTML = "";
 
-    <li>
-      <b>Shell-Localized Gravitational Response and Horizon Formation in a Finite-Response Medium</b> <em>(Core)</em><br>
-      Horizon formation emerges from finite-response saturation in gradient-dominated shells rather than from enclosed mass alone.<br>
-      <a href="https://doi.org/10.5281/zenodo.19512416" target="_blank" rel="noopener">DOI / PDF</a>
-    </li>
-  </ul>
+      let visible = 0;
 
-  <h3>Operational / Bridging Papers</h3>
-  <ul>
-    <li>
-      <b>Operational Response Structure in Modern Cosmology</b> <em>(Bridge)</em><br>
-      Transport, damping, and boundary behaviour without ontological commitment; motivates response language from standard practice.<br>
-      <a href="pdfs/Operational_Response_Structure_in_Modern_Cosmology__Transport__Damping__and_Boundary_Behavior_Without_Ontological_Commitment.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+      categoryOrder.forEach(category => {
+        const items = papers.filter(p => p.category === category).filter(p => {
+          const hay = `${p.category} ${p.title} ${p.doi} ${p.note || ""} ${p.tag || ""}`.toLowerCase();
+          return !q || hay.includes(q);
+        });
 
-    <li>
-      <b>Cosmological Inference in the Presence of Finite Propagation Response</b> <em>(Bridge)</em><br>
-      Reframes cosmological tensions as possible inference-regime effects arising from finite propagation response.<br>
-      <a href="pdfs/Cosmological_Inference_in_the_Presence_of_Finite_Propagation_Response (5).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        if(items.length === 0) return;
 
-    <li>
-      <b>Thermodynamics and Irreversibility as Emergent Properties of Open Physical Systems</b> <em>(Bridge)</em><br>
-      Mechanism-first, interpretation-neutral account of irreversibility and entropy production in open systems.<br>
-      <a href="pdfs/Thermodynamics_and_Irreversibility_as_Emergent_Properties_of_Open_Physical_Systems (5).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        visible += items.length;
 
-    <li>
-      <b>A Universal Finite-Response Law for Energy Storage and Release in Driven Physical Systems</b> <em>(Bridge)</em><br>
-      A universal internal-state law for delayed release, hysteresis, and non-equilibrium response across driven systems.<br>
-      <a href="pdfs/A_Universal_Finite_Response_Law_for_Energy_Storage_and_Release_in_Driven_Physical_Systems (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        const section = document.createElement("section");
+        section.className = "category";
 
-    <li>
-      <b>Why Many Physical Paradoxes Signal the Breakdown of Effective Descriptions</b> <em>(Context)</em><br>
-      Foundational paradoxes reinterpreted as failures of regime identification rather than contradictions in fundamental law.<br>
-      <a href="pdfs/Why_Many_Physical_Paradoxes_Signal_the_Breakdown_of_Effective_Descriptions (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        const h3 = document.createElement("h3");
+        h3.innerHTML = `${category} <span class="count">(${items.length})</span>`;
+        section.appendChild(h3);
 
-    <li>
-      <b>Emergent Condensate Superfluid Cosmology: Operational Requirements</b> <em>(Framework)</em><br>
-      A disciplined statement of what a response-based cosmology must reproduce, and how standard limits are recovered.<br>
-      <a href="pdfs/Emergent_Condensate_Superfluid_Cosmology__A_Framework_Satisfying_Operational_Response_Requirements (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        const ul = document.createElement("ul");
+        ul.className = "paper-list";
 
-    <li>
-      <b>Persistent Structural Tensions in Contemporary Physics</b> <em>(Context)</em><br>
-      A compact map of known tensions and the operational requirements any resolution must satisfy.<br>
-      <a href="pdfs/Persistent_Structural_Tensions_in_Contemporary_Physics_and_the_Operational_Requirements_for_Their_Resolution.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        items.forEach(p => {
+          const li = document.createElement("li");
+          li.className = "paper";
 
-    <li>
-      <b>Explicit Constraints and Failure Modes of Response-Based Cosmologies</b> <em>(Constraints)</em><br>
-      Concrete falsifiers and internal-consistency constraints; what would rule response-based approaches out.<br>
-      <a href="pdfs/Explicit_Constraints_and_Failure_Modes_of_Response_Based_Cosmological_Frameworks.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
+          const tag = p.tag
+            ? `<span class="tag ${tagClass(p.tag)}">${p.tag}</span>`
+            : "";
 
-  <h3>Cosmology / CMB Signatures</h3>
-  <ul>
-    <li>
-      <b>Acoustic Peak Structure of the Cosmic Microwave Background from Phase Transition Dynamics in an Emergent Condensate Superfluid Cosmological Medium</b> <em>(Cosmology)</em><br>
-      Acoustic peak ladder generated from phase-transition and finite-response propagation physics rather than standard expansion-based interpretation.<br>
-      <a href="pdfs/Acoustic_Peak_Structure_of_the_Cosmic_Microwave_Background_from_Phase_Transition_Dynamics_in_an_Emergent_Condensate_Superfluid_Cosmological_Medium (1).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+          li.innerHTML = `
+            <div class="paper-title">${p.title} ${tag}</div>
+            ${p.note ? `<div class="paper-note">${p.note}</div>` : ""}
+            <div class="paper-links">
+              <a href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI / PDF</a>
+            </div>
+            <div class="paper-meta">${p.doi}</div>
+          `;
 
-    <li>
-      <b>Cosmic Birefringence from Finite-Response Photon Transport in an Emergent Condensate Superfluid Medium</b> <em>(Cosmology)</em><br>
-      Polarization rotation from parity-odd finite-response transport, with TB and EB signatures linked to coherence gradients and vorticity.<br>
-      <a href="pdfs/Cosmic_Birefringence_from_Finite_Response_Photon_Transport_in_an_Emergent_Condensate_Superfluid_Medium (4).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
+          ul.appendChild(li);
+        });
 
-  <h3>Interface / Vacuum Coupling</h3>
-  <ul>
-    <li>
-      <b>Stellar Surfaces as Interface Physics</b> <em>(Interface)</em><br>
-      Boundary conditions, mode coupling, and effective vacuum response across stellar surfaces.<br>
-      <a href="pdfs/Stellar_Surfaces_as_Interface_Physics__Boundary_Conditions__Mode_Coupling__and_Effective_Vacuum_Response.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+        section.appendChild(ul);
+        root.appendChild(section);
+      });
 
-    <li>
-      <b>Measurement Back-Action as Phase/Coherence Geometry</b> <em>(Quantum)</em><br>
-      Continuous collapse framed as coherence loss and response activation (operational, not ontological).<br>
-      <a href="pdfs/Measurement_Back_Action_as_Phase_Coherence_Geometry_in_Continuous_Quantum_Collapse (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
+      count.textContent = q
+        ? `${visible} paper(s) matching "${filter}"`
+        : `${papers.length} papers listed`;
+    }
 
-  <h3>Matter Formation / Microphysics</h3>
-  <ul>
-    <li>
-      <b>Matter Formation as the Breakdown of Linear Propagation</b> <em>(Matter)</em><br>
-      Response saturation, proto-matter, and emergence of stable excitations.<br>
-      <a href="pdfs/Matter_Formation_as_the_Breakdown_of_Linear_Propagation__Response_Saturation_and_the_Emergence_of_Stable_Excitations.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
+    document.getElementById("paperSearch").addEventListener("input", e => {
+      renderPapers(e.target.value);
+    });
 
-    <li>
-      <b>Nuclear Stability, Matter Formation, and the Iron Peak</b> <em>(Nuclear)</em><br>
-      A response-optimisation view of binding energy, fusion/fission directionality, and the iron peak.<br>
-      <a href="pdfs/Nuclear_Stability__Matter_Formation__and_the_Iron_Peak_in_an_Emergent_Condensate_Superfluid_Medium.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-
-    <li>
-      <b>Microphysics (in progress)</b> <em>(Developing)</em><br>
-      Excitation taxonomy, coupling rules, and minimal microscopic scaffold for gravity, optics, and structure.<br>
-      <a href="pdfs/ECSM_Microphysics__Sanity_Draft___A_Minimal_Microscopic_Scaffold_for_Gravity__Optics__and_Structure (6).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
-
-  <h3>Laboratory / Applied Finite-Response Systems</h3>
-  <ul>
-    <li>
-      <b>Sonoluminescence as Coherence Breakdown: A Non-Markovian Emission Mechanism in Driven Bubble Collapse</b> <em>(Lab / Applied)</em><br>
-      Bubble-collapse emission interpreted as coherence-mediated release in a finite-response medium, with lag and threshold predictions.<br>
-      <a href="pdfs/Sonoluminescence_as_Coherence_Breakdown__A_Non_Markovian_Emission_Mechanism_in_Driven_Bubble_Collapse (3).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-
-    <li>
-      <b>The Mpemba Effect as a Finite-Response Coherence Transition</b> <em>(Lab / Applied)</em><br>
-      Freezing reinterpreted as a response-controlled coherence transition rather than a temperature-only effect.<br>
-      <a href="pdfs/The_Mpemba_Effect_as_a_Finite_Response_Coherence_Transition.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
-
-  <hr>
-
-  <h2>Empirical / Phenomenology</h2>
-  <p class="section-note small">
-    Data-facing work intended to constrain dynamics using observations and reproducible pipelines.
-  </p>
-  <ul>
-    <li>
-      <b>Phase-Asymmetric Dynamics in Wide Binaries</b> <em>(Empirical)</em><br>
-      Phase-dependent velocity asymmetry with extensive null tests and robustness checks.<br>
-      <a href="pdfs/Phase_Asymmetric_Dynamics_in_Wide_Binaries (10).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-    <li>
-      <b>CMB Lensing Suppression Test</b> <em>(Empirical)</em><br>
-      Lensing reconstructions and high-ℓ suppression diagnostics.<br>
-      <a href="results.html">Results page</a>
-    </li>
-  </ul>
-
-  <h2>Working Drafts</h2>
-  <p class="section-note small">
-    Ongoing numerical and phenomenological work supporting the main framework.
-  </p>
-  <ul>
-    <li>
-      <b>Numerical diagnostics</b><br>
-      Simulation tests and consistency checks of ECSM dynamics.<br>
-      <a href="pdfs/Dynamical_Realisations_and_Numerical_Diagnostics_ECSM_Cosmology v2 .pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-    <li>
-      <b>Late-time structure notes</b><br>
-      Exploratory analyses of structure formation and growth behaviour.<br>
-      <a href="pdfs/Separating_Geometry_Growth_Amplitude_Late_Time_Cosmology.pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
-
-  <h2>Theoretical Notes</h2>
-  <p class="section-note small">
-    Conceptual and formal developments underlying ECSM.
-  </p>
-  <ul>
-    <li>
-      <b>Effective Lagrangian</b><br>
-      Minimal dynamical scaffold for emergent gravity and optics.<br>
-      <a href="pdfs/Effective_Lagrangian_Structure_of_Emergent_Condensate_Spacetime_Mechanics (2).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-    <li>
-      <b>Quantum emergence ideas</b><br>
-      Notes on coherence, measurement, and emergent quantum behaviour.<br>
-      <a href="pdfs/Quantum_Phenomena_as_Emergent_Dynamics_of_ECSM (11).pdf" target="_blank" rel="noopener">PDF</a>
-    </li>
-  </ul>
-
-  <h2>Archive / Null Results</h2>
-  <p class="section-note small">
-    Exploratory or null-result analyses retained for transparency.
-  </p>
-  <ul>
-    <li>
-      <b>Cross-correlation tests</b> <em>(Exploratory)</em><br>
-      Galaxy–CMB cross-correlation analyses without a confirmed signal.
-    </li>
-  </ul>
-
-  <hr>
-
-  <p>
-    <a href="papers.html">Papers index</a> ·
-    <a href="what-is-ecsm.html">What is ECSM?</a> ·
-    <a href="results.html">CMB Lensing Test</a>
-  </p>
-
-  <p class="small">
-    This project is under active development. Feedback, critique, and independent tests are welcome.
-  </p>
-
-  <p>
-    Contact:
-    <a href="mailto:adam.sheldrick.research@gmail.com">adam.sheldrick.research@gmail.com</a><br>
-    ORCID:
-    <a href="https://orcid.org/0009-0004-3145-757X" target="_blank" rel="noopener">
-      https://orcid.org/0009-0004-3145-757X
-    </a>
-  </p>
-
+    renderPapers();
+  </script>
 </body>
 </html>
